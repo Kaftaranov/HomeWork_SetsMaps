@@ -8,7 +8,7 @@ public class Main {
     private static final String text = "Open the access panel 325 Remove electrical connector from oil pressure " +
             "transducer Remove oil pressure transducer Remove and discard o-ring Install new o-ring on the oil " +
             "pressure transducer Install oil pressure transducer Connect the electrical connector to the oil " +
-            "pressure transducer Close access panel 325";
+            "pressure transducer Close the access panel 325";
 
     public static void oddNumbers() {
         for (Integer number : numbers) {
@@ -33,27 +33,49 @@ public class Main {
         System.out.println();
     }
 
-    public static void uniqueWords(){
+    public static void uniqueWords() {
         List<String> listOfUniqueWords = new ArrayList<>();
-        for (int i = 0; i < text.split(" ").length; i++) {
-          if(!listOfUniqueWords.contains(text.split(" ")[i])){
-             listOfUniqueWords.add(text.split(" ")[i]);
-           }else{
-            listOfUniqueWords.remove(text.split(" ")[i]);
+        int counter = 1;
+        listOfUniqueWords.addAll(Arrays.asList(text.split(" ")));
+        for (int i = 0; i < listOfUniqueWords.size(); i++) {
+            for (int j = i + 1; j < listOfUniqueWords.size(); j++) {
+                if (listOfUniqueWords.get(j).equalsIgnoreCase(listOfUniqueWords.get(i))) {
+                    listOfUniqueWords.remove(j);
+                    counter++;
+                }
+            }
+            if (counter > 1) {
+                listOfUniqueWords.set(i,"");
+                counter = 1;
             }
         }
         for (String listOfUniqueWord : listOfUniqueWords) {
-          System.out.print(listOfUniqueWord + " ");
-      }
+            System.out.print(listOfUniqueWord + " ");
+        }
         System.out.println();
     }
-    public static void repeatingCounter(){
-
+    public static void repeatingCounter() {
+        int counter = 1;
+        List<String> listOfUniqueWords = new ArrayList<>();
+        listOfUniqueWords.addAll(Arrays.asList(text.split(" ")));
+        for (int i = 0; i < listOfUniqueWords.size(); i++) {
+            for (int j = i + 1; j < listOfUniqueWords.size(); j++) {
+                if (listOfUniqueWords.get(j).equalsIgnoreCase(listOfUniqueWords.get(i))) {
+                    counter++;
+                    listOfUniqueWords.remove(j);
+                }
+            }
+            if (counter > 1) {
+                System.out.println("Number of word " + listOfUniqueWords.get(i) + " is " + counter);
+                counter = 1;
+            }
+        }
     }
 
     public static void main(String[] args) {
         oddNumbers();
         evenNumbers();
         uniqueWords();
+        repeatingCounter();
     }
 }
